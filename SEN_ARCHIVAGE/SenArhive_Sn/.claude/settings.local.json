@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdftotext -v)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(php -r \"echo ini_get\\(''disable_functions''\\);\")",
+      "Bash(grep -n \"from ''sonner''\" \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\\\\pages\\\\documents\\\\show.tsx\")",
+      "Bash(php artisan config:clear)",
+      "Bash(php artisan view:clear)",
+      "Bash(php -r \":*)",
+      "Bash(php artisan cache:clear)",
+      "Bash(php artisan route:clear)",
+      "Bash(php -r \"pg_connect\\('host=127.0.0.1 port=5432 dbname=SenArchive user=postgres password=Sata@2025'\\);\")",
+      "Bash(php artisan *)",
+      "Bash(npm run *)",
+      "Bash(php -l app/Http/Controllers/DashboardController.php app/Http/Controllers/DocumentController.php app/Models/Document.php app/Providers/FortifyServiceProvider.php app/Services/PipelineService.php)",
+      "Bash(php -r ' *)",
+      "Bash(php -l app/Services/PipelineService.php app/Http/Controllers/PipelineInstanceController.php)",
+      "Bash(php -l app/Http/Controllers/PipelineInstanceController.php)",
+      "Bash(php -l app/Http/Controllers/Admin/UtilisateurController.php)",
+      "Bash(xargs grep *)",
+      "Bash(Get-Content storage\\\\logs\\\\laravel.log -Tail 40)",
+      "Bash(php -r \"echo file_get_contents\\('storage/logs/laravel.log', false, null, -1, 3000\\);\")",
+      "Bash(php -r \"echo json_encode\\(array_keys\\(json_decode\\(file_get_contents\\('public/build/manifest.json'\\), true\\)\\)\\);\")",
+      "Bash(grep \"GET.*\\\\/$\\\\|GET.*login\\\\|POST.*login\")",
+      "Bash(composer install *)"
+    ]
+  }
+}

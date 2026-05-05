@@ -1,0 +1,7 @@
+# À placer dans public_html/.htaccess (PAS dans laravel_app/)
+# Remplacez "laravel_app" par le vrai nom de votre dossier sur le serveur
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ laravel_app/public/$1 [L]
+</IfModule>
