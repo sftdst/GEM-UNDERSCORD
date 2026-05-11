@@ -36,8 +36,9 @@ Route::middleware(['auth'])->prefix('gmp')->name('gmp.')->group(function () {
 
     // ── Paramétrage (admin) ───────────────────────────────────────────────────
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/exercices',        [GmpAdminController::class, 'exercices'])->name('exercices');
-        Route::post('/exercices',       [GmpAdminController::class, 'storeExercice'])->name('exercices.store');
+        Route::get('/exercices',         [GmpAdminController::class, 'exercices'])->name('exercices');
+        Route::post('/exercices',        [GmpAdminController::class, 'storeExercice'])->name('exercices.store');
+        Route::put('/exercices/{id}',    [GmpAdminController::class, 'updateExercice'])->name('exercices.update');
 
         Route::get('/types-marche',        [GmpAdminController::class, 'typesMarche'])->name('types-marche');
         Route::post('/types-marche',       [GmpAdminController::class, 'storeTypeMarche'])->name('types-marche.store');

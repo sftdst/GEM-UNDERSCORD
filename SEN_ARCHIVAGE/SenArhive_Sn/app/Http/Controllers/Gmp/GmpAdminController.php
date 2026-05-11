@@ -14,22 +14,38 @@ use Inertia\Inertia;
 
 class GmpAdminController extends Controller
 {
+    /** @return \App\Models\Utilisateur */
+    private function currentUser()
+    {
+        /** @var \App\Models\Utilisateur $user */
+        $user = \Illuminate\Support\Facades\Auth::user();
+        return $user;
+    }
+
     private function orgId(): string
     {
-        return auth()->user()->organisation_id;
+        return $this->currentUser()->organisation_id;
     }
 
     // ── Exercices budgétaires ─────────────────────────────────────────────────
 
-    public function exercices()
+    public function exercices(Request $request)
     {
-        $exercices = GmpExerciceBudgetaire::where('organisation_id', $this->orgId())
-            ->with('createur')
-            ->orderByDesc('annee')
-            ->get();
+        $query = GmpExerciceBudgetaire::where('organisation_id', $this->orgId())
+            ->with('createur');
+
+        if ($s = $request->get('search')) {
+            $query->where('annee', 'like', "%{$s}%");
+        }
+        if ($statut = $request->get('statut')) {
+            $query->where('statut', $statut);
+        }
+
+        $exercices = $query->orderByDesc('annee')->get();
 
         return Inertia::render('gmp/admin/exercices/index', [
             'exercices' => $exercices,
+            'filters'   => $request->only(['search', 'statut']),
         ]);
     }
 
@@ -40,16 +56,37 @@ class GmpAdminController extends Controller
             'budget_global' => 'nullable|numeric|min:0',
             'statut'        => 'required|in:preparation,ouvert,cloture',
             'date_ouverture'=> 'nullable|date',
-            'date_cloture'  => 'nullable|date|after:date_ouverture',
+            'date_cloture'  => 'nullable|date|after_or_equal:date_ouverture',
         ]);
 
         GmpExerciceBudgetaire::create(array_merge($data, [
             'id'             => (string) Str::uuid(),
+            'libelle'        => "Exercice {$data['annee']}",
             'organisation_id'=> $this->orgId(),
-            'created_by'     => auth()->id(),
+            'created_by'     => $this->currentUser()->id,
         ]));
 
         return back()->with('success', "Exercice {$data['annee']} créé.");
+    }
+
+    public function updateExercice(Request $request, string $id)
+    {
+        $exercice = GmpExerciceBudgetaire::where('organisation_id', $this->orgId())
+            ->findOrFail($id);
+
+        $data = $request->validate([
+            'annee'         => 'required|integer|min:2000|max:2100',
+            'budget_global' => 'nullable|numeric|min:0',
+            'statut'        => 'required|in:preparation,ouvert,cloture',
+            'date_ouverture'=> 'nullable|date',
+            'date_cloture'  => 'nullable|date|after_or_equal:date_ouverture',
+        ]);
+
+        $data['libelle'] = "Exercice {$data['annee']}";
+
+        $exercice->update($data);
+
+        return back()->with('success', "Exercice {$data['annee']} mis à jour.");
     }
 
     // ── Types de marché ───────────────────────────────────────────────────────

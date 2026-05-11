@@ -17,7 +17,7 @@ class GmpExerciceBudgetaire extends Model
     protected $table = 'gmp_exercices_budgetaires';
 
     protected $fillable = [
-        'organisation_id', 'annee', 'budget_global', 'statut',
+        'organisation_id', 'annee', 'libelle', 'budget_global', 'statut',
         'date_ouverture', 'date_cloture', 'created_by',
     ];
 

@@ -17,9 +17,9 @@ class GmpPlanPassation extends Model
     protected $table = 'gmp_plans_passation';
 
     protected $fillable = [
-        'organisation_id', 'exercice_id', 'version', 'statut',
-        'date_soumission', 'date_approbation', 'approuve_par',
-        'pipeline_instance_id', 'created_by',
+        'organisation_id', 'exercice_id', 'reference', 'intitule',
+        'version', 'statut', 'date_soumission', 'date_approbation',
+        'approuve_par', 'pipeline_instance_id', 'created_by',
     ];
 
     protected function casts(): array
