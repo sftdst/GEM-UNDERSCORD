@@ -28,7 +28,21 @@
     "activity_log": "Registro de actividad",
     "mail_config": "Configuración de correo",
     "settings": "Configuración",
-    "support": "Soporte"
+    "support": "Soporte",
+    "gmp": "Contratos Públicos y Privados",
+    "gmp_dashboard": "Panel GMP",
+    "gmp_ppm": "Plan de Adquisiciones (PPM)",
+    "gmp_ao": "Convocatorias",
+    "gmp_marches": "Contratos",
+    "gmp_fournisseurs": "Proveedores",
+    "gmp_alertes": "Alertas IA",
+    "gmp_rapports": "Informes y Anomalías",
+    "gmp_parametrage": "Configuración GMP",
+    "gmp_types_marche": "Tipos de contrato",
+    "gmp_modes_passation": "Modos de adjudicación",
+    "gmp_secteurs": "Sectores",
+    "gmp_seuils": "Umbrales reglamentarios",
+    "gmp_exercices": "Ejercicios presupuestarios"
   },
   "auth": {
     "login_title": "Inicia sesión en tu cuenta",

@@ -78,6 +78,7 @@ class HandleInertiaRequests extends Middleware
                         'audit', 'deux_facteurs', 'recherche', 'chiffrement', 'sauvegarde',
                         'api', 'support_prioritaire',
                         'ia', 'recherche_ia',
+                        'gmp',
                     ]
                     // En production : uniquement celles du plan souscrit
                     : collect($user->organisation->plan?->fonctionnalites ?? [])

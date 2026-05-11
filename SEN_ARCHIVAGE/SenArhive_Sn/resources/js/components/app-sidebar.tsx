@@ -1,24 +1,32 @@
 import { Link, usePage } from '@inertiajs/react';
 import {
     Activity,
+    BarChart3,
     Briefcase,
     Building,
     Building2,
     CheckSquare,
+    ClipboardList,
     CreditCard,
+    FileCheck2,
     FileText,
     FolderOpen,
     FolderTree,
     GitMerge,
-    ListTree,
     HelpCircle,
     LayoutGrid,
+    ListTree,
     Mail,
+    Megaphone,
     MessageSquare,
     Receipt,
+    Scale,
     Settings,
     Shield,
+    SlidersHorizontal,
+    Sparkles,
     Tag,
+    TrendingUp,
     Users,
     Share2,
     UsersRound,
@@ -76,6 +84,19 @@ export function AppSidebar() {
             ],
         }] : []),
         { title: t('nav.messaging'), href: '/messagerie', icon: MessageSquare },
+        ...(has('gmp') ? [{
+            title: t('nav.gmp'),
+            icon: Scale,
+            children: [
+                { title: t('nav.gmp_dashboard'),    href: '/gmp',                  icon: TrendingUp },
+                { title: t('nav.gmp_ppm'),          href: '/gmp/ppm',              icon: ClipboardList },
+                { title: t('nav.gmp_ao'),           href: '/gmp/appels-offres',    icon: Megaphone },
+                { title: t('nav.gmp_marches'),      href: '/gmp/marches',          icon: FileCheck2 },
+                { title: t('nav.gmp_fournisseurs'), href: '/gmp/fournisseurs',     icon: Building },
+                { title: t('nav.gmp_alertes'),      href: '/gmp/alertes',          icon: Sparkles },
+                { title: t('nav.gmp_rapports'),     href: '/gmp/rapports',         icon: BarChart3 },
+            ],
+        }] : []),
     ];
 
     const adminNavItems: NavItem[] = [
@@ -115,6 +136,17 @@ export function AppSidebar() {
         },
         ...(has('audit') ? [{ title: t('nav.activity_log'), href: '/admin/audit', icon: Activity }] : []),
         { title: t('nav.mail_config'), href: '/settings/mail', icon: Mail },
+        ...(has('gmp') ? [{
+            title: t('nav.gmp_parametrage'),
+            icon: SlidersHorizontal,
+            children: [
+                { title: t('nav.gmp_exercices'),       href: '/gmp/admin/exercices',       icon: Wallet },
+                { title: t('nav.gmp_types_marche'),    href: '/gmp/admin/types-marche',    icon: Tag },
+                { title: t('nav.gmp_modes_passation'), href: '/gmp/admin/modes-passation', icon: ListTree },
+                { title: t('nav.gmp_secteurs'),        href: '/gmp/admin/secteurs',        icon: Layers },
+                { title: t('nav.gmp_seuils'),          href: '/gmp/admin/seuils',          icon: Scale },
+            ],
+        }] : []),
     ];
 
     return (

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             FonctionnaliteSeeder::class, // doit être en premier
             PlansSeeder::class,
             DemoOrganisationSeeder::class,
+            GmpReferenceDataSeeder::class, // données de référence GMP
         ]);
     }
 }

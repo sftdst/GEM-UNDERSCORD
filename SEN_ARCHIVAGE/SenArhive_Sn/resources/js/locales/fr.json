@@ -28,7 +28,21 @@
     "activity_log": "Journal d'activité",
     "mail_config": "Configuration Mail",
     "settings": "Paramètres",
-    "support": "Support"
+    "support": "Support",
+    "gmp": "Marchés Publics & Privés",
+    "gmp_dashboard": "Tableau de bord GMP",
+    "gmp_ppm": "Plan de Passation (PPM)",
+    "gmp_ao": "Appels d'offres",
+    "gmp_marches": "Marchés",
+    "gmp_fournisseurs": "Fournisseurs",
+    "gmp_alertes": "Alertes IA",
+    "gmp_rapports": "Rapports & Anomalies",
+    "gmp_parametrage": "Paramétrage GMP",
+    "gmp_types_marche": "Types de marché",
+    "gmp_modes_passation": "Modes de passation",
+    "gmp_secteurs": "Secteurs d'intervention",
+    "gmp_seuils": "Seuils réglementaires",
+    "gmp_exercices": "Exercices budgétaires"
   },
   "auth": {
     "login_title": "Connectez-vous à votre compte",

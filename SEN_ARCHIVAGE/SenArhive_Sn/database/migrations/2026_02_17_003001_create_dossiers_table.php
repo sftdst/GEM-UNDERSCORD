@@ -12,7 +12,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('organisation_id')->constrained('organisations')->cascadeOnDelete();
             $table->foreignUuid('espace_id')->nullable()->constrained('espaces')->nullOnDelete();
-            $table->foreignUuid('parent_id')->nullable()->constrained('dossiers')->cascadeOnDelete();
+            $table->uuid('parent_id')->nullable();
             $table->string('nom', 255);
             $table->text('description')->nullable();
             $table->text('chemin')->nullable();
@@ -24,6 +24,12 @@ return new class extends Migration
 
             $table->index('organisation_id');
             $table->index('parent_id');
+        });
+
+        // Self-referential FK must be added after the table is fully created
+        // so PostgreSQL can find the primary key constraint on dossiers.id
+        Schema::table('dossiers', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('dossiers')->cascadeOnDelete();
         });
     }
 

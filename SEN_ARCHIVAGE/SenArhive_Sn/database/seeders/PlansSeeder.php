@@ -29,6 +29,7 @@ class PlansSeeder extends Seeder
             'audit', 'deux_facteurs', 'recherche', 'chiffrement', 'sauvegarde',
             'api', 'support_prioritaire',
             'ia', 'recherche_ia',
+            'gmp',
         ],
         'entreprise' => [
             // Toutes les fonctionnalités
@@ -38,6 +39,7 @@ class PlansSeeder extends Seeder
             'audit', 'deux_facteurs', 'recherche', 'chiffrement', 'sauvegarde',
             'api', 'support_prioritaire',
             'ia', 'recherche_ia',
+            'gmp',
         ],
     ];
 

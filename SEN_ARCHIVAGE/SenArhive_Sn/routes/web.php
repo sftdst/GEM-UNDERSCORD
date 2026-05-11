@@ -65,3 +65,4 @@ require __DIR__.'/support.php';
 require __DIR__.'/chatbot.php';
 require __DIR__.'/messagerie.php';
 require __DIR__.'/superadmin.php';
+require __DIR__.'/gmp.php';

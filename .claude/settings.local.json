@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Select-String \"departement|service|organisation|utilisateur|role|workflow|pipeline|journal|notification|document|dossier\")",
+      "PowerShell(Set-Location \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\"; $env:PGPASSWORD = \"Sata@2025\"; psql -U postgres -h 127.0.0.1 -c \"CREATE DATABASE senarchive_dev;\" 2>&1)",
+      "Bash(php artisan *)",
+      "PowerShell(head -30)",
+      "PowerShell(php \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\reset_gmp_tables.php\" 2>&1)",
+      "PowerShell(Get-ChildItem \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\" -Recurse | Where-Object { $_.Name -match \"nav|menu|sidebar|layout\" -and $_.Extension -match \"tsx|ts|jsx|js\" } | Select-Object FullName)",
+      "PowerShell(Get-Content \"C:\\\\Users\\\\BAMBA\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\e--CODING-DSTCOMPUTING-Plateforme-GMP-UNDERSCORD\\\\61eed4b0-c043-4cd9-a6ae-d32f51701f10\\\\tasks\\\\bcjglqth4.output\" -Wait -Tail 20)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://127.0.0.1:8000\" -TimeoutSec 5 -UseBasicParsing 2>&1)",
+      "PowerShell(Start-Process -FilePath \"php\" -ArgumentList \"artisan\", \"serve\", \"--port=8000\" -WorkingDirectory \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\" -WindowStyle Hidden)",
+      "PowerShell(Start-Sleep -Seconds 2; try { $r = Invoke-WebRequest -Uri \"http://127.0.0.1:8000/login\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) OK\" } catch { \"Erreur: $_\" })"
+    ]
+  }
+}

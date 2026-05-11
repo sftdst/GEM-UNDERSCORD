@@ -41,6 +41,9 @@ class FonctionnaliteSeeder extends Seeder
             // Intelligence Artificielle
             ['code' => 'ia',              'nom' => 'Intelligence artificielle',  'categorie' => 'ia', 'ordre' => 1],
             ['code' => 'recherche_ia',    'nom' => 'Recherche sémantique IA',    'categorie' => 'ia', 'ordre' => 2],
+
+            // Gestion des Marchés Publics & Privés
+            ['code' => 'gmp', 'nom' => 'GMP Intelligence — Marchés Publics & Privés', 'categorie' => 'gmp', 'ordre' => 1],
         ];
 
         foreach ($features as $feature) {

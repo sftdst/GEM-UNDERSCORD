@@ -28,7 +28,21 @@
     "activity_log": "Activity Log",
     "mail_config": "Mail Configuration",
     "settings": "Settings",
-    "support": "Support"
+    "support": "Support",
+    "gmp": "Public & Private Contracts",
+    "gmp_dashboard": "GMP Dashboard",
+    "gmp_ppm": "Procurement Plan (PPM)",
+    "gmp_ao": "Calls for Tenders",
+    "gmp_marches": "Contracts",
+    "gmp_fournisseurs": "Suppliers",
+    "gmp_alertes": "AI Alerts",
+    "gmp_rapports": "Reports & Anomalies",
+    "gmp_parametrage": "GMP Settings",
+    "gmp_types_marche": "Contract Types",
+    "gmp_modes_passation": "Procurement Modes",
+    "gmp_secteurs": "Sectors",
+    "gmp_seuils": "Regulatory Thresholds",
+    "gmp_exercices": "Budget Periods"
   },
   "auth": {
     "login_title": "Sign in to your account",

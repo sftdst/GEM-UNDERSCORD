@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('commentaires', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('document_id')->constrained('documents')->cascadeOnDelete();
-            $table->foreignUuid('parent_id')->nullable()->constrained('commentaires')->cascadeOnDelete();
+            $table->uuid('parent_id')->nullable();
             $table->foreignUuid('utilisateur_id')->constrained('utilisateurs');
             $table->text('contenu');
             $table->jsonb('position_json')->nullable();
@@ -21,6 +21,10 @@ return new class extends Migration
             $table->timestampTz('created_at')->useCurrent();
 
             $table->index('document_id');
+        });
+
+        Schema::table('commentaires', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('commentaires')->cascadeOnDelete();
         });
     }
 

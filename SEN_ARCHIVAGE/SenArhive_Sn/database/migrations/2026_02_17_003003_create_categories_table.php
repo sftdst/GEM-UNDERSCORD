@@ -11,12 +11,16 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('organisation_id')->constrained('organisations')->cascadeOnDelete();
-            $table->foreignUuid('parent_id')->nullable()->constrained('categories');
+            $table->uuid('parent_id')->nullable();
             $table->string('nom', 100);
             $table->text('description')->nullable();
             $table->timestampTz('created_at')->useCurrent();
 
             $table->unique(['organisation_id', 'nom']);
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('categories');
         });
     }
 
