@@ -97,13 +97,21 @@ class GmpDashboardController extends Controller
     {
         $data = $request->validate(['exercice_id' => 'required|uuid']);
 
-        $version = GmpPlanPassation::where('organisation_id', $this->orgId())
+        $orgId = $this->orgId();
+
+        $exercice = GmpExerciceBudgetaire::where('organisation_id', $orgId)
+            ->where('id', $data['exercice_id'])
+            ->firstOrFail();
+
+        $version = GmpPlanPassation::where('organisation_id', $orgId)
             ->where('exercice_id', $data['exercice_id'])->count() + 1;
 
         GmpPlanPassation::create([
             'id'              => (string) Str::uuid(),
-            'organisation_id' => $this->orgId(),
+            'organisation_id' => $orgId,
             'exercice_id'     => $data['exercice_id'],
+            'reference'       => "PPM-{$exercice->annee}-V{$version}",
+            'intitule'        => "Plan de Passation des Marchés {$exercice->annee} - Version {$version}",
             'version'         => $version,
             'statut'          => 'preparation',
             'created_by'      => $this->currentUser()->id,

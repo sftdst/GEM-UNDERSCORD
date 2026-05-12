@@ -42,6 +42,18 @@ import {
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 
+// ── Séparateur dégradé ────────────────────────────────────────────────────────
+
+function NavSeparator() {
+    return (
+        <div className="px-3 group-data-[collapsible=icon]:px-2">
+            <div className="h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
+        </div>
+    );
+}
+
+// ── Sidebar principale ────────────────────────────────────────────────────────
+
 export function AppSidebar() {
     const { t } = useTranslation();
     const { organisation } = usePage().props as {
@@ -122,7 +134,7 @@ export function AppSidebar() {
         <Sidebar collapsible="icon" variant="inset">
 
             {/* ── Logo ── */}
-            <SidebarHeader className="border-b border-sidebar-border/50 pb-2">
+            <SidebarHeader className="pb-2">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
@@ -132,16 +144,23 @@ export function AppSidebar() {
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
+                <div className="mx-1 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
             </SidebarHeader>
 
-            {/* ── Contenu scrollable ── */}
-            <SidebarContent className="sidebar-scroll">
+            {/* ── Navigation scrollable ── */}
+            <SidebarContent className="sidebar-scroll gap-0 py-1">
 
-                {/* Navigation principale */}
+                {/* Plateforme */}
                 <NavMain items={mainNavItems} label={t('nav.platform')} />
 
                 {/* Module GMP */}
-                {has('gmp') && <NavGmp />}
+                {has('gmp') && (
+                    <>
+                        <NavSeparator />
+                        <NavGmp />
+                        <NavSeparator />
+                    </>
+                )}
 
                 {/* Administration */}
                 <NavMain items={adminNavItems} label={t('nav.administration')} />
@@ -149,7 +168,8 @@ export function AppSidebar() {
             </SidebarContent>
 
             {/* ── Pied de page ── */}
-            <SidebarFooter className="border-t border-sidebar-border/50 pt-2">
+            <SidebarFooter className="pt-0">
+                <div className="mx-1 mb-1 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
                 <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
