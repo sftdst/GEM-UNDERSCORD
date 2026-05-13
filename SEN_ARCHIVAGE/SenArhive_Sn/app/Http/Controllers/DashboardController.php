@@ -48,7 +48,7 @@ class DashboardController extends Controller
         // ── Graphe 1 : Évolution mensuelle (12 derniers mois) ────────────────
         $rawMensuel = Document::where('organisation_id', $orgId)
             ->where('created_at', '>=', now()->subMonths(11)->startOfMonth())
-            ->selectRaw("TO_CHAR(created_at, 'YYYY-MM') as mois, COUNT(*) as total")
+            ->selectRaw("strftime('%Y-%m', created_at) as mois, COUNT(*) as total")
             ->groupBy('mois')
             ->orderBy('mois')
             ->get()

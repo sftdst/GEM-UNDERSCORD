@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { NavFooter } from '@/components/nav-footer';
+import { NavCourrier } from '@/components/nav-courrier';
 import { NavGmp } from '@/components/nav-gmp';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -153,16 +154,20 @@ export function AppSidebar() {
                 {/* Plateforme */}
                 <NavMain items={mainNavItems} label={t('nav.platform')} />
 
-                {/* Module GMP */}
-                {has('gmp') && (
-                    <>
-                        <NavSeparator />
-                        <NavGmp />
-                        <NavSeparator />
-                    </>
-                )}
+{/* Module GMP */}
+                 {has('gmp') && (
+                     <>
+                         <NavSeparator />
+                         <NavGmp />
+                         <NavSeparator />
+                     </>
+                 )}
 
-                {/* Administration */}
+                 {/* Module Courriers */}
+                 <NavSeparator />
+                 <NavCourrier />
+
+                 {/* Administration */}
                 <NavMain items={adminNavItems} label={t('nav.administration')} />
 
             </SidebarContent>

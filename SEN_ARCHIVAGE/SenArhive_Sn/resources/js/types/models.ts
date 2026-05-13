@@ -427,7 +427,154 @@ export interface MessageTicket {
     utilisateur?: Utilisateur;
 }
 
-// ─── Module Pipeline GED ────────────────────────────────────────────────────
+// ─── Module Courrier ──────────────────────────────────────────────────────────
+
+export interface Courrier {
+    id: string;
+    numero: string;
+    type: 'ENT' | 'SOR';
+    objet: string;
+    reference: string | null;
+    expediteur_nom: string | null;
+    expediteur_organisation: string | null;
+    expediteur_adresse: string | null;
+    expediteur_email: string | null;
+    expediteur_telephone: string | null;
+    destinataire_nom: string | null;
+    destinataire_organisation: string | null;
+    destinataire_adresse: string | null;
+    destinataire_email: string | null;
+    service_id: string | null;
+    agent_affecte_id: string | null;
+    courrier_type_id: string | null;
+    courrier_statut_id: string | null;
+    categorie: string | null;
+    urgence: string;
+    moyen_envoi: string | null;
+    statut: string;
+    date_reception: string | null;
+    date_envoi: string | null;
+    date_echeance: string | null;
+    date_traitement: string | null;
+    observations: string | null;
+    contenu_texte: string | null;
+    created_by: string | null;
+    parent_courrier_id: string | null;
+    hash_sha256: string | null;
+    version_courante: number;
+    accuse_reception_genere: boolean;
+    organisation_id: string;
+    deleted_at: string | null;
+    created_at: string;
+    updated_at: string;
+    service?: Service;
+    agent?: Utilisateur;
+    typeCourrier?: CourrierType;
+    statutCourrier?: CourrierStatut;
+    createur?: Utilisateur;
+    documents?: CourrierDocument[];
+    commentaires?: CourrierCommentaire[];
+    historiques?: CourrierHistorique[];
+    notifications?: CourrierNotification[];
+    alertes?: CourrierAlerte[];
+    dossiers?: Dossier[];
+    jours_retard?: number;
+    est_en_retard?: boolean;
+}
+
+export interface CourrierType {
+    id: string;
+    organisation_id: string;
+    nom: string;
+    code: string;
+    couleur: string | null;
+    icone: string | null;
+    actif: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CourrierStatut {
+    id: string;
+    organisation_id: string;
+    nom: string;
+    code: string;
+    couleur: string | null;
+    ordre: number;
+    actif: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CourrierHistorique {
+    id: string;
+    courrier_id: string;
+    user_id: string | null;
+    action: string;
+    ancien_statut: string | null;
+    nouveau_statut: string | null;
+    destinataire_transfert: string | null;
+    motif: string | null;
+    details: string | null;
+    ip_address: string | null;
+    created_at: string;
+    updated_at: string;
+    utilisateur?: Utilisateur;
+}
+
+export interface CourrierCommentaire {
+    id: string;
+    courrier_id: string;
+    user_id: string | null;
+    contenu: string;
+    interne: boolean;
+    created_at: string;
+    updated_at: string;
+    utilisateur?: Utilisateur;
+}
+
+export interface CourrierDocument {
+    id: string;
+    courrier_id: string;
+    nom_fichier: string;
+    nom_fichier_original: string;
+    chemin: string;
+    mime_type: string | null;
+    taille_octets: number;
+    hash_sha256: string | null;
+    created_by: string | null;
+    created_at: string;
+    updated_at: string;
+    extension?: string;
+}
+
+export interface CourrierNotification {
+    id: string;
+    user_id: string;
+    courrier_id: string | null;
+    type: string;
+    titre: string;
+    message: string | null;
+    lien: string | null;
+    lu: boolean;
+    lu_le: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CourrierAlerte {
+    id: string;
+    courrier_id: string;
+    user_id: string;
+    type: string;
+    date_alerte: string;
+    envoyee: boolean;
+    lue: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+// ─── Pipeline GED ────────────────────────────────────────────────────────────────
 
 export interface Pipeline {
     id: string;
@@ -454,7 +601,7 @@ export interface PipelineEtape {
     description: string | null;
     type_acteur: 'utilisateur' | 'service' | 'role';
     acteur_id: string | null;
-    acteur_nom: string; // appended: nom résolu de l'acteur
+    acteur_nom: string;
     annotation_obligatoire: boolean;
     fichier_requis: boolean;
     commentaire_requis: boolean;
@@ -491,7 +638,6 @@ export interface PipelineEtapeInstance {
     statut: 'en_attente' | 'en_cours' | 'complete' | 'valide' | 'rejete' | 'retour_modification';
     acteur_type_override: 'utilisateur' | 'service' | 'role' | null;
     acteur_id_override: string | null;
-    // Appended: acteur effectif (override ou template)
     acteur_effectif_type: 'utilisateur' | 'service' | 'role';
     acteur_effectif_id: string | null;
     acteur_effectif_nom: string;

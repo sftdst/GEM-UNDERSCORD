@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Document;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DocumentSearchService
 {
@@ -13,23 +13,10 @@ class DocumentSearchService
         $builder = Document::query()
             ->with(['createur', 'tags', 'dossier', 'categorie']);
 
-        // Recherche textuelle plein texte (FTS) — uniquement si une requête est fournie
-        if (!empty($query)) {
-            $builder->where(function ($b) use ($query) {
-                $b->whereRaw("vecteur_recherche @@ plainto_tsquery('french', ?)", [$query])
-                  ->orWhere('numero_document', 'ilike', '%' . $query . '%')
-                  ->orWhere('titre', 'ilike', '%' . $query . '%');
-            })->orderByRaw(
-                "ts_rank(vecteur_recherche, plainto_tsquery('french', ?)) DESC",
-                [$query]
-            );
-        }
-
-        // Restreindre aux documents du service de l'utilisateur si applicable
+        // Filtres de colonne (toujours disponibles)
         if (!empty($filters['service_id'])) {
             $builder->where('service_id', $filters['service_id']);
         }
-
         if (!empty($filters['dossier_id'])) {
             $builder->where('dossier_id', $filters['dossier_id']);
         }
@@ -53,15 +40,34 @@ class DocumentSearchService
                 $q->whereIn('tags.id', $filters['tag_ids']);
             });
         }
-
-        // Filtre par numéro de document (recherche partielle insensible à la casse)
         if (!empty($filters['numero_document'])) {
             $builder->where('numero_document', 'ilike', '%' . trim($filters['numero_document']) . '%');
         }
-
-        // Filtre par date du document (correspondance exacte de la date)
         if (!empty($filters['date_document'])) {
             $builder->whereDate('date_document', $filters['date_document']);
+        }
+
+        // Recherche textuelle — utiliser FTS si la colonne existe (PostgreSQL), sinon LIKE (SQLite)
+        if (!empty($query)) {
+            $hasFtsColumn = Schema::hasColumn('documents', 'vecteur_recherche');
+
+            if ($hasFtsColumn) {
+                $builder->where(function ($b) use ($query) {
+                    $b->whereRaw("vecteur_recherche @@ plainto_tsquery('french', ?)", [$query])
+                      ->orWhere('numero_document', 'ilike', '%' . $query . '%')
+                      ->orWhere('titre', 'ilike', '%' . $query . '%');
+                })->orderByRaw(
+                    "ts_rank(vecteur_recherche, plainto_tsquery('french', ?)) DESC",
+                    [$query]
+                );
+            } else {
+                $builder->where(function ($b) use ($query) {
+                    $b->where('titre', 'ilike', '%' . $query . '%')
+                      ->orWhere('description', 'ilike', '%' . $query . '%')
+                      ->orWhere('texte_extrait', 'ilike', '%' . $query . '%')
+                      ->orWhere('numero_document', 'ilike', '%' . $query . '%');
+                });
+            }
         }
 
         if (empty($query)) {
