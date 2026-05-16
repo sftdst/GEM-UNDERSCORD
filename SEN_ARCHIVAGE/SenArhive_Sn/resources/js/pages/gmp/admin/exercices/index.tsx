@@ -1,8 +1,9 @@
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import {
     ArrowUpDown,
     CalendarDays,
     CalendarRange,
+    Layers,
     Pencil,
     Plus,
     Search,
@@ -324,7 +325,7 @@ export default function ExercicesIndex({ exercices, filters }: Props) {
                                     <th className="px-4 py-3 text-left font-medium text-muted-foreground">Ouverture</th>
                                     <th className="px-4 py-3 text-left font-medium text-muted-foreground">Clôture</th>
                                     <th className="px-4 py-3 text-left font-medium text-muted-foreground">Statut</th>
-                                    <th className="px-4 py-3 w-12" />
+                                    <th className="px-4 py-3 w-24" />
                                 </tr>
                             </thead>
                             <tbody className="divide-y">
@@ -347,14 +348,28 @@ export default function ExercicesIndex({ exercices, filters }: Props) {
                                             </Badge>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <Button
-                                                size="icon"
-                                                variant="ghost"
-                                                className="h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                onClick={() => openEdit(ex)}
-                                            >
-                                                <Pencil className="h-3.5 w-3.5" />
-                                            </Button>
+                                            <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button
+                                                    size="icon"
+                                                    variant="ghost"
+                                                    className="h-7 w-7"
+                                                    title="Gérer les enveloppes"
+                                                    asChild
+                                                >
+                                                    <Link href={`/gmp/admin/exercices/${ex.id}`}>
+                                                        <Layers className="h-3.5 w-3.5" />
+                                                    </Link>
+                                                </Button>
+                                                <Button
+                                                    size="icon"
+                                                    variant="ghost"
+                                                    className="h-7 w-7"
+                                                    title="Modifier l'exercice"
+                                                    onClick={() => openEdit(ex)}
+                                                >
+                                                    <Pencil className="h-3.5 w-3.5" />
+                                                </Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Gmp;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gmp\GmpEnveloppeSectorielle;
 use App\Models\Gmp\GmpExerciceBudgetaire;
 use App\Models\Gmp\GmpModePassation;
 use App\Models\Gmp\GmpSecteurIntervention;
@@ -34,10 +35,10 @@ class GmpAdminController extends Controller
         $query = GmpExerciceBudgetaire::where('organisation_id', $this->orgId())
             ->with('createur');
 
-        if ($s = $request->get('search')) {
+        if ($s = $request->input('search')) {
             $query->where('annee', 'like', "%{$s}%");
         }
-        if ($statut = $request->get('statut')) {
+        if ($statut = $request->input('statut')) {
             $query->where('statut', $statut);
         }
 
@@ -87,6 +88,84 @@ class GmpAdminController extends Controller
         $exercice->update($data);
 
         return back()->with('success', "Exercice {$data['annee']} mis à jour.");
+    }
+
+    public function showExercice(string $id)
+    {
+        $orgId    = $this->orgId();
+        $exercice = GmpExerciceBudgetaire::where('organisation_id', $orgId)->findOrFail($id);
+
+        $enveloppes = GmpEnveloppeSectorielle::where('organisation_id', $orgId)
+            ->where('exercice_id', $id)
+            ->with('secteur')
+            ->orderByDesc('montant_alloue')
+            ->get();
+
+        $tousLesSecteurs = GmpSecteurIntervention::where('organisation_id', $orgId)
+            ->where('actif', true)
+            ->orderBy('libelle')
+            ->get(['id', 'code', 'libelle', 'couleur']);
+
+        $secteursDispo = $tousLesSecteurs->whereNotIn('id', $enveloppes->pluck('secteur_id'))->values();
+
+        return Inertia::render('gmp/admin/exercices/show', [
+            'exercice'       => $exercice,
+            'enveloppes'     => $enveloppes,
+            'secteurs_dispo' => $secteursDispo,
+            'total_alloue'   => (float) $enveloppes->sum('montant_alloue'),
+            'total_engage'   => (float) $enveloppes->sum('montant_engage'),
+        ]);
+    }
+
+    public function storeEnveloppe(Request $request, string $id)
+    {
+        $exercice = GmpExerciceBudgetaire::where('organisation_id', $this->orgId())->findOrFail($id);
+
+        $data = $request->validate([
+            'secteur_id'     => 'required|uuid',
+            'montant_alloue' => 'required|numeric|min:0',
+        ]);
+
+        GmpEnveloppeSectorielle::create([
+            'id'              => (string) Str::uuid(),
+            'organisation_id' => $this->orgId(),
+            'exercice_id'     => $exercice->id,
+            'secteur_id'      => $data['secteur_id'],
+            'montant_alloue'  => $data['montant_alloue'],
+            'montant_engage'  => 0,
+        ]);
+
+        return back()->with('success', 'Enveloppe créée.');
+    }
+
+    public function updateEnveloppe(Request $request, string $id, string $envId)
+    {
+        $enveloppe = GmpEnveloppeSectorielle::where('organisation_id', $this->orgId())
+            ->where('exercice_id', $id)
+            ->findOrFail($envId);
+
+        $data = $request->validate([
+            'montant_alloue' => 'required|numeric|min:0',
+        ]);
+
+        $enveloppe->update($data);
+
+        return back()->with('success', 'Enveloppe mise à jour.');
+    }
+
+    public function destroyEnveloppe(string $id, string $envId)
+    {
+        $enveloppe = GmpEnveloppeSectorielle::where('organisation_id', $this->orgId())
+            ->where('exercice_id', $id)
+            ->findOrFail($envId);
+
+        if ((float) $enveloppe->montant_engage > 0) {
+            return back()->withErrors(['enveloppe' => 'Impossible de supprimer : des engagements existent sur ce secteur.']);
+        }
+
+        $enveloppe->delete();
+
+        return back()->with('success', 'Enveloppe supprimée.');
     }
 
     // ── Types de marché ───────────────────────────────────────────────────────

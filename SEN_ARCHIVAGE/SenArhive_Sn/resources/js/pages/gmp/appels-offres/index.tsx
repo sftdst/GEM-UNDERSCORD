@@ -1,5 +1,5 @@
-import { Head, router, useForm } from '@inertiajs/react';
-import { Megaphone, Pencil, Plus, Search, X } from 'lucide-react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { FileCheck2, Megaphone, Pencil, Plus, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -232,9 +232,16 @@ export default function AppelsOffresIndex({ appels_offres, types_marche, modes_p
                                             </Badge>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => setModal(ao)}>
-                                                <Pencil className="h-3.5 w-3.5" />
-                                            </Button>
+                                            <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button size="icon" variant="ghost" className="h-7 w-7" title="Gérer les pièces requises" asChild>
+                                                    <Link href={`/gmp/appels-offres/${ao.id}`}>
+                                                        <FileCheck2 className="h-3.5 w-3.5" />
+                                                    </Link>
+                                                </Button>
+                                                <Button size="icon" variant="ghost" className="h-7 w-7" title="Modifier" onClick={() => setModal(ao)}>
+                                                    <Pencil className="h-3.5 w-3.5" />
+                                                </Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}

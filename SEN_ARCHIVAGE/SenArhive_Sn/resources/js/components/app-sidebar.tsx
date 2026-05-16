@@ -154,14 +154,14 @@ export function AppSidebar() {
                 {/* Plateforme */}
                 <NavMain items={mainNavItems} label={t('nav.platform')} />
 
-{/* Module GMP */}
-                 {has('gmp') && (
-                     <>
-                         <NavSeparator />
-                         <NavGmp />
-                         <NavSeparator />
-                     </>
-                 )}
+                {/* Module GMP */}
+                {has('gmp') && (
+                    <>
+                        <NavSeparator />
+                        <NavGmp />
+                        <NavSeparator />
+                    </>
+                )}
 
                  {/* Module Courriers */}
                  <NavSeparator />

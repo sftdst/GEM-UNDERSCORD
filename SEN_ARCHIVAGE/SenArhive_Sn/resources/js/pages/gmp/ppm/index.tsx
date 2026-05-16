@@ -31,14 +31,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const STATUTS_PPM = [
-    { value: 'preparation',        label: 'Préparation',        cls: 'bg-gray-50 text-gray-600 border-gray-200' },
-    { value: 'soumis',              label: 'Soumis',             cls: 'bg-blue-50 text-blue-700 border-blue-200' },
-    { value: 'en_revision',         label: 'En révision',        cls: 'bg-amber-50 text-amber-700 border-amber-200' },
-    { value: 'approuve',            label: 'Approuvé',           cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-    { value: 'publie',              label: 'Publié',             cls: 'bg-teal-50 text-teal-700 border-teal-200' },
-    { value: 'en_cours_execution',  label: 'En exécution',       cls: 'bg-violet-50 text-violet-700 border-violet-200' },
-    { value: 'cloture',             label: 'Clôturé',            cls: 'bg-slate-50 text-slate-600 border-slate-200' },
-    { value: 'annule',              label: 'Annulé',             cls: 'bg-red-50 text-red-700 border-red-200' },
+    { value: 'brouillon',            label: 'Brouillon',          cls: 'bg-gray-50 text-gray-600 border-gray-200' },
+    { value: 'soumis',               label: 'Soumis',             cls: 'bg-blue-50 text-blue-700 border-blue-200' },
+    { value: 'en_validation',        label: 'En validation',      cls: 'bg-amber-50 text-amber-700 border-amber-200' },
+    { value: 'valide_sectoriel',     label: 'Validé sectoriel',   cls: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+    { value: 'soumis_approbation',   label: "Soumis approbation", cls: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+    { value: 'approuve',             label: 'Approuvé',           cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+    { value: 'publie',               label: 'Publié',             cls: 'bg-teal-50 text-teal-700 border-teal-200' },
+    { value: 'revise',               label: 'Révisé',             cls: 'bg-violet-50 text-violet-700 border-violet-200' },
 ];
 
 function statutCls(s: string) { return STATUTS_PPM.find(x => x.value === s)?.cls ?? 'bg-gray-50 text-gray-600 border-gray-200'; }

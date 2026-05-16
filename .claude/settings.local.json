@@ -14,7 +14,21 @@
       "Bash(Select-String -Pattern \"\\(built in|error|Error\\)\")",
       "Bash(Get-ChildItem -Path \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\\\\pages\\\\gmp\\\\\" -Recurse -File | Select-Object -ExpandProperty FullName)",
       "Bash(Get-ChildItem -Path 'e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\\\\pages\\\\gmp\\\\' -Recurse -File)",
-      "Bash(Select-Object -ExpandProperty FullName)"
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Get-ChildItem -Path \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\database\\\\migrations\" -Filter \"*gmp*\")",
+      "Bash(Select-Object FullName)",
+      "Bash(dir \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\\\\pages\")",
+      "Bash(dir /s \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\\\\pages\\\\gmp\")",
+      "Bash(dir \"e:\\\\CODING\\\\DSTCOMPUTING\\\\Plateforme\\\\GMP UNDERSCORD\\\\SEN_ARCHIVAGE\\\\SenArhive_Sn\\\\resources\\\\js\\\\pages\\\\gmp\\\\admin\")",
+      "Bash(Get-ChildItem -Path . -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(php -l \"e:/CODING/DSTCOMPUTING/Plateforme/GMP UNDERSCORD/SEN_ARCHIVAGE/SenArhive_Sn/app/Http/Controllers/Gmp/GmpDashboardController.php\")",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)"
     ]
   }
 }
