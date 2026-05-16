@@ -68,6 +68,11 @@ class GmpAppelOffre extends Model
         return $this->hasMany(GmpSoumission::class, 'appel_offre_id');
     }
 
+    public function piecesRequises(): HasMany
+    {
+        return $this->hasMany(GmpPieceRequise::class, 'appel_offre_id')->orderBy('ordre');
+    }
+
     public function pvOuverture(): HasOne
     {
         return $this->hasOne(GmpPvOuverturePli::class, 'appel_offre_id');

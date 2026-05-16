@@ -16,20 +16,24 @@ class GmpMarchePrevu extends Model
     protected $table = 'gmp_marches_prevus';
 
     protected $fillable = [
-        'plan_id', 'organisation_id', 'numero', 'intitule',
-        'secteur_id', 'type_marche_id', 'mode_passation_id', 'source_financement_id',
-        'montant_previsionnel', 'date_lancement_prevue', 'date_attribution_prevue',
-        'date_fin_prevue', 'score_risque_ia', 'observations_ia', 'created_by',
+        'plan_id', 'organisation_id', 'numero', 'objet', 'description',
+        'type_marche_id', 'mode_passation_id', 'source_financement_id', 'secteur_id',
+        'montant_previsionnel',
+        'date_lancement_prevue', 'date_attribution_prevue', 'date_debut_prevue', 'date_fin_prevue',
+        'duree_prevue_jours', 'statut', 'observations',
+        'score_risque_ia', 'dossier_id', 'created_by',
     ];
 
     protected function casts(): array
     {
         return [
-            'montant_previsionnel' => 'decimal:2',
-            'score_risque_ia' => 'decimal:2',
-            'date_lancement_prevue' => 'date',
+            'montant_previsionnel'    => 'decimal:2',
+            'score_risque_ia'         => 'decimal:2',
+            'duree_prevue_jours'      => 'integer',
+            'date_lancement_prevue'   => 'date',
             'date_attribution_prevue' => 'date',
-            'date_fin_prevue' => 'date',
+            'date_debut_prevue'       => 'date',
+            'date_fin_prevue'         => 'date',
         ];
     }
 

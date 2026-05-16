@@ -17,21 +17,25 @@ class GmpSoumission extends Model
     protected $table = 'gmp_soumissions';
 
     protected $fillable = [
-        'appel_offre_id', 'organisation_id', 'fournisseur_id', 'date_soumission',
-        'montant_offre_ht', 'montant_offre_ttc', 'note_technique', 'note_financiere',
-        'note_globale', 'statut', 'alerte_offre_anormale', 'motif_rejet', 'created_by',
+        'organisation_id', 'appel_offre_id', 'fournisseur_id',
+        'reference_soumission', 'date_depot',
+        'montant_offre_ht', 'montant_offre_ttc',
+        'delai_execution_propose',
+        'statut', 'score_technique', 'score_financier', 'score_global',
+        'motif_elimination', 'alerte_offre_anormale', 'dossier_id',
     ];
 
     protected function casts(): array
     {
         return [
-            'montant_offre_ht' => 'decimal:2',
-            'montant_offre_ttc' => 'decimal:2',
-            'note_technique' => 'decimal:2',
-            'note_financiere' => 'decimal:2',
-            'note_globale' => 'decimal:2',
-            'alerte_offre_anormale' => 'boolean',
-            'date_soumission' => 'datetime',
+            'montant_offre_ht'        => 'decimal:2',
+            'montant_offre_ttc'       => 'decimal:2',
+            'score_technique'         => 'decimal:2',
+            'score_financier'         => 'decimal:2',
+            'score_global'            => 'decimal:2',
+            'delai_execution_propose' => 'integer',
+            'alerte_offre_anormale'   => 'boolean',
+            'date_depot'              => 'datetime',
         ];
     }
 
@@ -48,6 +52,11 @@ class GmpSoumission extends Model
     public function createur(): BelongsTo
     {
         return $this->belongsTo(Utilisateur::class, 'created_by');
+    }
+
+    public function pieces(): HasMany
+    {
+        return $this->hasMany(GmpSoumissionPiece::class, 'soumission_id')->with('pieceRequise');
     }
 
     public function evaluations(): HasMany

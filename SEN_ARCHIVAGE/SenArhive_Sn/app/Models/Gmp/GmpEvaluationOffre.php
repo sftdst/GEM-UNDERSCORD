@@ -16,8 +16,8 @@ class GmpEvaluationOffre extends Model
     const UPDATED_AT = null;
 
     protected $fillable = [
-        'soumission_id', 'critere', 'ponderation',
-        'note', 'note_ponderee', 'observations', 'evalue_par',
+        'soumission_id', 'evaluateur_id', 'critere',
+        'ponderation', 'note', 'note_ponderee', 'commentaire',
     ];
 
     protected function casts(): array

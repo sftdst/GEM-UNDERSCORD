@@ -14,10 +14,31 @@ Route::middleware(['auth'])->prefix('gmp')->name('gmp.')->group(function () {
     Route::post('/ppm',           [GmpDashboardController::class, 'storePpm'])->name('ppm.store');
     Route::put('/ppm/{id}',       [GmpDashboardController::class, 'updatePpm'])->name('ppm.update');
 
+    // ── Marchés prévus ───────────────────────────────────────────────────────
+    Route::get('/marches-prevus',      [GmpDashboardController::class, 'marchesPrevus'])->name('marches-prevus');
+    Route::post('/marches-prevus',     [GmpDashboardController::class, 'storeMarchePrevu'])->name('marches-prevus.store');
+    Route::put('/marches-prevus/{id}', [GmpDashboardController::class, 'updateMarchePrevu'])->name('marches-prevus.update');
+
+    // ── Soumissions ───────────────────────────────────────────────────────────
+    Route::get('/soumissions',      [GmpDashboardController::class, 'soumissions'])->name('soumissions');
+    Route::post('/soumissions',     [GmpDashboardController::class, 'storeSoumission'])->name('soumissions.store');
+    Route::put('/soumissions/{id}', [GmpDashboardController::class, 'updateSoumission'])->name('soumissions.update');
+
     // ── Appels d'offres ───────────────────────────────────────────────────────
-    Route::get('/appels-offres',      [GmpDashboardController::class, 'appelsOffres'])->name('ao');
-    Route::post('/appels-offres',     [GmpDashboardController::class, 'storeAppelOffre'])->name('ao.store');
-    Route::put('/appels-offres/{id}', [GmpDashboardController::class, 'updateAppelOffre'])->name('ao.update');
+    Route::get('/appels-offres',                                           [GmpDashboardController::class, 'appelsOffres'])->name('ao');
+    Route::post('/appels-offres',                                          [GmpDashboardController::class, 'storeAppelOffre'])->name('ao.store');
+    Route::put('/appels-offres/{id}',                                      [GmpDashboardController::class, 'updateAppelOffre'])->name('ao.update');
+    Route::get('/appels-offres/{id}',                                      [GmpDashboardController::class, 'showAppelOffre'])->name('ao.show');
+    Route::post('/appels-offres/{id}/pieces',                              [GmpDashboardController::class, 'storePieceRequise'])->name('ao.pieces.store');
+    Route::put('/appels-offres/{id}/pieces/{pieceId}',                     [GmpDashboardController::class, 'updatePieceRequise'])->name('ao.pieces.update');
+    Route::delete('/appels-offres/{id}/pieces/{pieceId}',                  [GmpDashboardController::class, 'destroyPieceRequise'])->name('ao.pieces.destroy');
+
+    // ── Évaluation des offres ─────────────────────────────────────────────────
+    Route::get('/evaluations',                                         [GmpDashboardController::class, 'evaluations'])->name('evaluations');
+    Route::post('/evaluations/{soumissionId}/criteres',                [GmpDashboardController::class, 'storeEvaluation'])->name('evaluations.store');
+    Route::put('/evaluations/{soumissionId}/criteres/{id}',            [GmpDashboardController::class, 'updateEvaluation'])->name('evaluations.update');
+    Route::delete('/evaluations/{soumissionId}/criteres/{id}',         [GmpDashboardController::class, 'deleteEvaluation'])->name('evaluations.delete');
+    Route::put('/evaluations/{soumissionId}/statut',                   [GmpDashboardController::class, 'updateStatutSoumission'])->name('evaluations.statut');
 
     // ── Marchés ───────────────────────────────────────────────────────────────
     Route::get('/marches',      [GmpDashboardController::class, 'marches'])->name('marches');
@@ -36,9 +57,13 @@ Route::middleware(['auth'])->prefix('gmp')->name('gmp.')->group(function () {
 
     // ── Paramétrage (admin) ───────────────────────────────────────────────────
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/exercices',         [GmpAdminController::class, 'exercices'])->name('exercices');
-        Route::post('/exercices',        [GmpAdminController::class, 'storeExercice'])->name('exercices.store');
-        Route::put('/exercices/{id}',    [GmpAdminController::class, 'updateExercice'])->name('exercices.update');
+        Route::get('/exercices',                               [GmpAdminController::class, 'exercices'])->name('exercices');
+        Route::post('/exercices',                              [GmpAdminController::class, 'storeExercice'])->name('exercices.store');
+        Route::put('/exercices/{id}',                          [GmpAdminController::class, 'updateExercice'])->name('exercices.update');
+        Route::get('/exercices/{id}',                          [GmpAdminController::class, 'showExercice'])->name('exercices.show');
+        Route::post('/exercices/{id}/enveloppes',              [GmpAdminController::class, 'storeEnveloppe'])->name('exercices.enveloppes.store');
+        Route::put('/exercices/{id}/enveloppes/{envId}',       [GmpAdminController::class, 'updateEnveloppe'])->name('exercices.enveloppes.update');
+        Route::delete('/exercices/{id}/enveloppes/{envId}',    [GmpAdminController::class, 'destroyEnveloppe'])->name('exercices.enveloppes.destroy');
 
         Route::get('/types-marche',        [GmpAdminController::class, 'typesMarche'])->name('types-marche');
         Route::post('/types-marche',       [GmpAdminController::class, 'storeTypeMarche'])->name('types-marche.store');
